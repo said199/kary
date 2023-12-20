@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Declaración</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        /* Estilos para el modal */
+        #myModal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        #modalContent {
+            background-color: #fefefe;
+            margin: 0% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%; /* Ancho inicial del modal */
+        }
+
+        #mensaje {
+            font-size: 20px; /* Tamaño de fuente del mensaje, ajusta según sea necesario */
+        }
+
+        /* Estilo para el botón "No" */
+        #noBtn {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor">      
+        <p>✨Eres la persona con la que quiero compartir cada aventura, cada sonrisa y cada momento especial. ¿Me dejarías ser tu novio 💍?</p>
+        <button id="yesBtn">Si 🎻</button>
+        <button id="noBtn">No 😢</button>
+        <h1> ❤️ </h1>
+    </div>
+
+    <!-- Modal -->
+    <div id="myModal">
+        <div id="modalContent">
+            <p id="mensaje"></p>
+        </div>
+    </div>
+
+    <script>
+        var yesBtn = document.getElementById('yesBtn');
+        var noBtn = document.getElementById('noBtn');
+        var modal = document.getElementById('myModal');
+        var modalContent = document.getElementById('modalContent');
+        var mensajeElement = document.getElementById('mensaje');
+
+        yesBtn.addEventListener('click', function () {
+            var imagen = document.createElement('img');
+            imagen.src = 'probando.jpg'; 
+
+            mensajeElement.innerHTML = '❤️ "Estoy emocionado de embarcarme en esta nueva etapa de la vida contigo, y espero que nuestra relación sea un viaje lleno de crecimiento y amor compartido." 😍 🤭';
+
+            // Ajustar el tamaño de fuente del mensaje
+            mensajeElement.style.fontSize = '24px';
+
+            modalContent.innerHTML = '';
+            modalContent.appendChild(imagen);
+            modalContent.appendChild(document.createElement('br')); // Agregar un salto de línea
+            modalContent.appendChild(mensajeElement);
+
+            // Ajustar la anchura del modal justo antes de mostrarlo
+            modalContent.style.width = '28%'; // Puedes ajustar este valor según tus necesidades
+            modalContent.style.height = '103vh';
+
+            modal.style.display = 'block';
+        });
+        document.addEventListener('mousemove', function (event) {
+            // Obtener la posición del puntero
+            var mouseX = event.clientX;
+            var mouseY = event.clientY;
+
+            // Obtener la posición del botón "No"
+            var buttonX = noBtn.offsetLeft + noBtn.clientWidth / 2;
+            var buttonY = noBtn.offsetTop + noBtn.clientHeight / 2;
+
+            // Calcular la distancia entre el puntero y el botón "No"
+            var distance = Math.sqrt((mouseX - buttonX) ** 2 + (mouseY - buttonY) ** 2);
+
+            // Si la distancia es menor a 100, mueve el botón "No"
+            if (distance < 100) {
+                var randomX = Math.random() * (window.innerWidth - noBtn.clientWidth);
+                var randomY = Math.random() * (window.innerHeight - noBtn.clientHeight);
+
+                noBtn.style.left = randomX + 'px';
+                noBtn.style.top = randomY + 'px';
+            }
+        });
+
+        // Cierra el modal al hacer clic fuera de él
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        };
+    </script>
+
+</body>
+</html>
